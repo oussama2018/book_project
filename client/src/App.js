@@ -1,11 +1,14 @@
 import './App.css';
-import { Routes,Route } from 'react-router-dom';
+import { Routes,Route, useNavigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Navbar from './component/Navbar';
+import LoginAdmin from './pages/LoginAdmin';
+
 
 function App() {
+
   return (
     <div className="App">
       <Navbar/>
@@ -13,7 +16,8 @@ function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/register" element={<Register />} /> 
         <Route path="/profile" element={<Profile />} /> 
-        
+        <Route path="/LoginAdmin" element={<LoginAdmin />} /> 
+
       </Routes>
     </div>
   );

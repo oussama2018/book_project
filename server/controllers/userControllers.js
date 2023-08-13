@@ -79,4 +79,26 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         };
-module.exports={register,login,getuserinfo,deleteUser}
+        const updateUserFields = async (req, res) => {
+            try {
+                const userId = req.params.id;
+                const { name, lastname, age } = req.body;
+        
+                const updateFields = {};
+                if (name) updateFields.name = name;
+                if (lastname) updateFields.lastname = lastname;
+                if (age) updateFields.age = age;
+        
+                const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true });
+        
+                if (updatedUser) {
+                    res.status(200).json({ msg: "User fields updated successfully", user: updatedUser });
+                } else {
+                    res.status(404).json({ msg: "User not found" });
+                }
+            } catch (error) {
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        };
+        
+module.exports={register,login,getuserinfo,deleteUser,updateUserFields}

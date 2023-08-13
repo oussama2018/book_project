@@ -1,10 +1,23 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { dispatch } from 'react';
+import{useDispatch} from "react-redux"
+import { signup } from '../redux/slices/userSlice';
+import { useSelector} from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Register = () => {
-  
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const {isAuth}=useSelector(state=>state.user)
+  useEffect(()=>{
+    if(isAuth){
+      navigate("/profile")
+    }
+  },[isAuth])
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    dispatch(signup(data))
+    };
   console.log(errors);
   
   return (

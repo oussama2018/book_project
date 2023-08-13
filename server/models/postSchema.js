@@ -7,5 +7,5 @@ const postSchema=mongoose.Schema({
     image:{type:String,required:true},
     price:{type:Number,required:true}
 })
-const User=mongoose.model('books',postSchema)
-module.exports =User; 
+const Book=mongoose.model('books',postSchema)
+module.exports =Book; 
