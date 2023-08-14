@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginAdmin = () => {
     const dispatch=useDispatch()
     const navigate=useNavigate()
-    const {isAuth}=useSelector(state=>state.user)
+    const {isAuth}=useSelector(state=>state.admin)
     useEffect(()=>{
       if(isAuth){
         navigate("/admin")

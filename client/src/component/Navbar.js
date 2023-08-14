@@ -11,6 +11,7 @@ const dispatch=useDispatch()
         <Link to="/register">Register</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/Loginadmin">LoginAdmin</Link>
+        <Link to="/Admin">Admin</Link>
         <button onClick={()=>dispatch(logout())}>logout</button>
     </div>
   )
