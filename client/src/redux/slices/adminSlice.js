@@ -12,6 +12,18 @@ export const signin=createAsyncThunk(
         }
     }
 )
+/* export const getBook=createAsyncThunk(
+    "/api/admin/login",async(info,rejectWithValue)=>{
+        try{
+                const res=await axios.get("/admin/Book/getBook/:id",info)
+                return res.data
+        }
+        catch(errors){
+                return rejectWithValue(errors.response.data.msg)
+        }
+    }
+) */
+
 
 
 const adminSlice=createSlice({
@@ -47,6 +59,25 @@ const adminSlice=createSlice({
             state.isAuth=false
             state.token=null
             },
+            
+
+/*             [getBook.pending]:(state)=>{
+                state.isLoading=true},
+                [getBook.fulfilled]:(state,action)=>{
+                state.isAuth=true
+                state.isLoading=false
+                state.admindata=action.payload.admin
+                state.token=action.payload.token
+                localStorage.setItem("token",state.token)
+                localStorage.setItem("isAuth",state.isAuth)
+                },
+                [getBook.rejected]:(state)=>{
+                state.isLoading=false
+                state.isAuth=false
+                state.token=null
+                }, */
+
+            
         }
     })
     

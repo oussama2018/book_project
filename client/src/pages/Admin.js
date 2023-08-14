@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../redux/slices/adminSlice';
+import { getBook, logout } from '../redux/slices/adminSlice';
+
 const Admin = () => {
   const dispatch=useDispatch()
   const {userdata,isAuth,isLoading}=useSelector(state=>state.admin)
@@ -13,6 +14,9 @@ const Admin = () => {
       navigate("/LoginAdmin")
     }
   },[isAuth])
+/*   useEffect(()=>{
+    dispatch(getBook())
+  }) */
   return (
     <div>Admin
          <button onClick={()=>dispatch(logout())}>logout</button>

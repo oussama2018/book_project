@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const Admin = require('../models/adminSchema');
+const authmiddleware=require('../middleware/authMiddleware')
 const {login,addBook,deleteBook, updateBook, getBook}=require('../controllers/adminControllers')
 
 router.post('/addBook',addBook)

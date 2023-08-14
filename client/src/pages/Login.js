@@ -5,6 +5,7 @@ import { signin } from '../redux/slices/userSlice';
 import { useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './LoginAdmin.css'
 const Login = () => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -23,9 +24,10 @@ const Login = () => {
   return (
     <div>
        <form onSubmit={handleSubmit(onSubmit)}>
-      
-      <input type="email" placeholder="email" {...register("email", {required: true, maxLength: 80})} />
-      <input type="password" placeholder="password" {...register("password", {required: true, maxLength: 80})} />
+       <label >Email</label>
+        <input type="email" placeholder="email" id="username" {...register("email", {required: true, maxLength: 80})} />
+        <label >Password</label>
+        <input type="password" placeholder="password" id="password"{...register("password", {required: true, maxLength: 80})} />
 
       <input type="submit" />
     </form>
