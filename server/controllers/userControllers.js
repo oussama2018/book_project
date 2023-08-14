@@ -1,4 +1,5 @@
 const User =require('../models/userSchema')
+const Book =require('../models/postSchema')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const register=async(req,res)=>{
@@ -100,5 +101,20 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         };
+        const getBook = async (req, res) => {
+            try {
+                const bookId = req.params.id; // Assuming you'll pass the book's ID as a parameter
+                const book = await Book.findById(bookId);
+                
+                if (!book) {
+                    res.status(404).json({ msg: "Book not found" });
+                } else {
+                    res.status(200).json({ msg: "Book retrieved", book });
+                }
+            } catch (error) {
+                console.error("Error during book retrieval:", error);
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        }
         
-module.exports={register,login,getuserinfo,deleteUser,updateUserFields}
+module.exports={register,login,getuserinfo,deleteUser,updateUserFields,getBook}

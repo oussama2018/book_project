@@ -58,8 +58,16 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         }
-        
-       
+
+        const getAllBooks = async (req, res) => {
+            try {
+                const books = await Book.find();
+                res.status(200).json({ msg: "All books retrieved", books });
+            } catch (error) {
+                console.error("Error during books retrieval:", error);
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        }
         
         const deleteBook = async (req, res) => {
             try {
@@ -99,7 +107,7 @@ const login=async(req,res)=>{
             }
         }
         
-        module.exports = { login, addBook, deleteBook, updateBook, getBook };
+        module.exports = { login, addBook, deleteBook, updateBook, getBook,getAllBooks };
         
     
     
