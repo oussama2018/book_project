@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router()
 const authMiddleware=require('../middleware/authMiddleware')
 const User = require('../models/userSchema');
-const {register,login,getuserinfo,deleteUser,updateUserFields,getBook}=require('../controllers/userControllers')
+const {register,login,getuserinfo,deleteUser,updateUserFields,getBook,getAllBooks}=require('../controllers/userControllers')
 router.get('/deleteAll', async (req, res) => {
     try {
         await User.deleteMany({});
@@ -19,5 +19,6 @@ router.delete('/delete/:id',deleteUser);
 router.delete('/delete/:id',deleteUser); 
 router.put('/update/:id', updateUserFields); 
 router.get('/getBook/:id',getBook)
+router.get('/getAllBooks',getAllBooks)
 
 module.exports=router

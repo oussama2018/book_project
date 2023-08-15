@@ -15,9 +15,9 @@ export const signin = createAsyncThunk(
 
 export const getAllBooks = createAsyncThunk(
   "admin/getAllBooks",
-  async (info, { rejectWithValue }) => {
+  async (info, { rejectWithValue,dispatch }) => {
     try {
-      const res = await axios.get("/admin/Book/getAllBooks",info);
+      const res = await axios.get("/admin/Book/getAllBooks");
       return res.data;
     } catch (errors) {
       return rejectWithValue(errors.response.data.msg);
@@ -25,11 +25,34 @@ export const getAllBooks = createAsyncThunk(
   }
 );
 
+export const deleteBook = createAsyncThunk(
+    "admin/deleteBook",
+    async (bookId, { rejectWithValue, dispatch }) => {
+      try {
+        await axios.delete(`/admin/Book/deleteBook/${bookId}`);
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
+  
+
+//   export const addBook = createAsyncThunk(
+//     "admin/addBook",
+//     async (newBookInfo, { rejectWithValue, dispatch }) => {
+//       try {
+//         const res = await axios.post("/admin/Book/addBook", newBookInfo);
+//         return res.data; // Assuming the server returns the newly added book data
+//       } catch (errors) {
+//         return rejectWithValue(errors.response.data.msg);
+//       }
+//     }
+//   );
 const adminSlice = createSlice({
   name: "admin",
   initialState: {
     admindata: [],
-    posts: [], // Initialize your posts state
+    posts: [], 
     isLoading: false,
     token: localStorage.getItem("token") || null,
     isAuth: Boolean(localStorage.getItem("isAuth")) || false,
@@ -64,11 +87,35 @@ const adminSlice = createSlice({
     },
     [getAllBooks.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts = action.payload.posts; // Update the posts state
+      state.posts = action.payload; 
+      console.log(state.posts);
     },
     [getAllBooks.rejected]: (state) => {
       state.isLoading = false;
     },
+
+    [deleteBook.pending]: (state) => {
+        state.isLoading = true;
+      },
+      [deleteBook.fulfilled]: (state, action) => {
+        state.isLoading = false;
+      },
+      [deleteBook.rejected]: (state) => {
+        state.isLoading = false;
+      },
+    
+    //   [addBook.pending]: (state) => {
+    //     state.isLoading = true;
+    //   },
+    //   [addBook.fulfilled]: (state, action) => {
+    //     state.isLoading = false;
+    //     // You can update your state to include the newly added book
+    //     state.posts.push(action.payload); // Assuming payload contains the new book data
+    //   },
+    //   [addBook.rejected]: (state) => {
+    //     state.isLoading = false;
+    //   },
+    
   },
 });
 

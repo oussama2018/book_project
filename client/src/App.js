@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Navbar from './component/Navbar';
 import LoginAdmin from './pages/LoginAdmin';
 import Admin from './pages/Admin';
+import AddBookAdmin from './pages/AddBookAdmin';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/LoginAdmin" element={<LoginAdmin />} /> 
         <Route path="/Admin" element={<Admin />} /> 
+        <Route path="/AddBook" element={<AddBookAdmin />} /> 
 
       </Routes>
     </div>

@@ -5,7 +5,16 @@ const postSchema=mongoose.Schema({
     description:{type:String,required:true},
     author:{type:String,required:true},
     image:{type:String,required:true},
-    price:{type:Number,required:true}
+    price:{type:Number,required:true},
+    createAt:{
+        type:Date,
+        default:new Date()
+       },
+       owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+       }
+    
 })
 const Book=mongoose.model('books',postSchema)
 module.exports =Book; 

@@ -116,5 +116,14 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         }
+        const getAllBooks=async(req,res)=>{
+            try{
+                const books=await Book.find().populate("owner").sort(("_createAt"))
+                res.status(200).json({msg:"Get all posts",books:books})
+            }
+            catch(error){
+                res.status(500).json({msg:"Something went wrong"})
+            }
+        }
         
-module.exports={register,login,getuserinfo,deleteUser,updateUserFields,getBook}
+module.exports={register,login,getuserinfo,deleteUser,updateUserFields,getBook,getAllBooks}

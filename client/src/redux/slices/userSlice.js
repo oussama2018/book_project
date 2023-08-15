@@ -35,7 +35,17 @@ export const signin=createAsyncThunk(
         }
     }
 )
-
+export const getAllBooks = createAsyncThunk(
+    "admin/getAllBooks",
+    async (info, { rejectWithValue,dispatch }) => {
+      try {
+        const res = await axios.get("/user/getAllBooks");
+        return res.data;
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
 
 
 
@@ -44,6 +54,7 @@ const userSlice=createSlice({
     name:"user",
     initialState:{
         userdata:[],
+        posts: [],
         isLoading:false,
         token:localStorage.getItem("token")||null,
         isAuth:Boolean(localStorage.getItem("isAuth")) || false
@@ -91,6 +102,18 @@ const userSlice=createSlice({
         state.isAuth=false
         state.token=null
         },
+
+        [getAllBooks.pending]: (state) => {
+            state.isLoading = true;
+          },
+          [getAllBooks.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.posts = action.payload; 
+            console.log(state.posts);
+          },
+          [getAllBooks.rejected]: (state) => {
+            state.isLoading = false;
+          },
     }
 })
 
