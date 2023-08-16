@@ -27,6 +27,11 @@ const Admin = () => {
     dispatch(deleteBook(bookId));
   };
 
+  const handleUpdate = (bookId) => {
+    const selectedBook = posts.books.find(book => book._id === bookId);
+    navigate('/UpdateBook', { state: { book: selectedBook } });
+  };
+
   return (
     <div>
       <h1>Welcome, Admin!</h1>
@@ -40,8 +45,7 @@ const Admin = () => {
             <p><strong>Author:</strong> {post.author}</p>
             <p><strong>Creation Date:</strong> {post.createAt}</p>
             <button onClick={() => handleDelete(post._id)}>Delete</button> 
-            <button onClick={() => navigate('/UpdateBook')}>Update</button>
-
+            <button onClick={() => handleUpdate(post._id)}>Update</button>
           </div>
         ))}
       </div>
@@ -51,3 +55,4 @@ const Admin = () => {
 };
 
 export default Admin;
+
