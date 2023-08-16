@@ -7,6 +7,7 @@ import Navbar from './component/Navbar';
 import LoginAdmin from './pages/LoginAdmin';
 import Admin from './pages/Admin';
 import AddBookAdmin from './pages/AddBookAdmin';
+import UpdateBookAdmin from './pages/UpdateBookAdmin';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/LoginAdmin" element={<LoginAdmin />} /> 
         <Route path="/Admin" element={<Admin />} /> 
         <Route path="/AddBook" element={<AddBookAdmin />} /> 
+        <Route path="/UpdateBook" element={<UpdateBookAdmin />} /> 
 
       </Routes>
     </div>

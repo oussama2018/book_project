@@ -35,7 +35,28 @@ export const deleteBook = createAsyncThunk(
       }
     }
   );
-  
+  export const addBook = createAsyncThunk(
+    "admin/addBook",
+    async (newBookInfo, { rejectWithValue, dispatch }) => {
+      try {
+        const res = await axios.post("/admin/Book/addBook", newBookInfo);
+        return res.data; // Assuming the server returns the newly added book data
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
+  export const updateBook = createAsyncThunk(
+    "admin/updateBook",
+    async ({ bookId, updatedBookInfo }, { rejectWithValue, dispatch }) => {
+      try {
+        const res = await axios.put(`/admin/Book/updateBook/${bookId}`, updatedBookInfo);
+        return { bookId, updatedBookInfo: res.data }; // Return the updated book info
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
 
 //   export const addBook = createAsyncThunk(
 //     "admin/addBook",
@@ -103,6 +124,34 @@ const adminSlice = createSlice({
       [deleteBook.rejected]: (state) => {
         state.isLoading = false;
       },
+      [addBook.pending]: (state) => {
+        state.isLoading = true;
+      },
+      [addBook.fulfilled]: (state, action) => {
+        state.isLoading = false;
+        // You can update your state to include the newly added book
+        state.posts.push(action.payload); // Assuming payload contains the new book data
+      },
+      [addBook.rejected]: (state) => {
+        state.isLoading = false;
+      },
+      [updateBook.pending]: (state) => {
+        state.isLoading = true;
+      },
+      [updateBook.fulfilled]: (state, action) => {
+        state.isLoading = false;
+        const { bookId, updatedBookInfo } = action.payload;
+        // Find the index of the book to be updated in your posts array
+        const index = state.posts.findIndex(book => book.id === bookId);
+        if (index !== -1) {
+          // Update the book with the new information
+          state.posts[index] = updatedBookInfo;
+        }
+      },
+      [updateBook.rejected]: (state) => {
+        state.isLoading = false;
+      
+    },
     
     //   [addBook.pending]: (state) => {
     //     state.isLoading = true;
@@ -121,3 +170,4 @@ const adminSlice = createSlice({
 
 export default adminSlice.reducer;
 export const { logout } = adminSlice.actions;
+
