@@ -29,17 +29,17 @@ const Profile = () => {
         <h1>{userdata.age}</h1>
         <h1>{userdata.email}</h1>
         <h1>{posts.msg}</h1>
-      <ul>
+        <div className="card-container">
         {posts.books && posts.books.map((post, index) => (
-          <li >
-            <h2>{`Post ${index + 1}`}</h2>
+          <div className="card" key={post._id}>
+            {post.image && <img src={post.image} alt={post.bookname} />}
             <p><strong>Book Name:</strong> {post.bookname}</p>
             <p><strong>Description:</strong> {post.description}</p>
             <p><strong>Author:</strong> {post.author}</p>
             <p><strong>Creation Date:</strong> {post.createAt}</p>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       </div>
       
       }

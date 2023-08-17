@@ -51,6 +51,7 @@ export const deleteBook = createAsyncThunk(
     async ({ bookId, updatedBookInfo }, { rejectWithValue, dispatch }) => {
       try {
         const res = await axios.put(`/admin/Book/updateBook/${bookId}`, updatedBookInfo);
+        console.log(bookId)
         return { bookId, updatedBookInfo: res.data }; // Return the updated book info
       } catch (errors) {
         return rejectWithValue(errors.response.data.msg);
@@ -141,13 +142,20 @@ const adminSlice = createSlice({
       [updateBook.fulfilled]: (state, action) => {
         state.isLoading = false;
         const { bookId, updatedBookInfo } = action.payload;
-        // Find the index of the book to be updated in your posts array
-        const index = state.posts.findIndex(book => book.id === bookId);
-        if (index !== -1) {
-          // Update the book with the new information
-          state.posts[index] = updatedBookInfo;
-        }
+      console.log(action.payload)
+        // Create a new array with the updated book information
+        const updatedPosts = state.posts.map(book => {
+          if (book._id === bookId) {
+            return { ...book, ...updatedBookInfo };
+          }
+          return book;
+        });
+      
+        // Update the state with the new array
+        state.posts = updatedPosts;
+    
       },
+      
       [updateBook.rejected]: (state) => {
         state.isLoading = false;
       

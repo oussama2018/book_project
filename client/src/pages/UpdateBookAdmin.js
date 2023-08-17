@@ -1,14 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateBook } from '../redux/slices/adminSlice';
 const UpdateBookAdmin = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
   const location = useLocation();
   const { book } = location.state;
+  console.log(book)
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  
   const [loading, setLoading] = React.useState(true);
 
   // Pre-fill the form fields with the book data
@@ -25,9 +28,13 @@ const UpdateBookAdmin = () => {
 
   const onSubmit = data => {
     // Send the updated book data to your backend API or Redux store
-    dispatch(updateBook({ bookId: book.id, data }));
+    dispatch(updateBook({ bookId: book._id, updatedBookInfo: data }));
+
         console.log("Updated book data:", data);
+        console.log(book._id);
     // Handle the update process here
+    navigate('/Admin');
+    window.location.reload();
   };
 
   console.log("Form errors:", errors);
