@@ -17,7 +17,6 @@ const LoginAdmin = () => {
       if(isAuth){
         navigate("/admin")
       }
-      
     },[isAuth])
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {console.log(data)

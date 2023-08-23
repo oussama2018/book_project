@@ -12,7 +12,7 @@ const Login = () => {
   const {isAuth}=useSelector(state=>state.user)
   useEffect(()=>{
     if(isAuth){
-      navigate("/profile")
+      navigate("/listbooks")
     }
   },[isAuth])
   const { register, handleSubmit, formState: { errors } } = useForm();

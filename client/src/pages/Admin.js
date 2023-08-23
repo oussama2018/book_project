@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getBook, logout, getAllBooks, deleteBook } from '../redux/slices/adminSlice';
-
 import '../styles/Card.css';
 
 const Admin = () => {
@@ -37,7 +36,7 @@ const Admin = () => {
       <h1>Welcome, Admin!</h1>
       
       <div className="card-container">
-        {posts.books && posts.books.map((post, index) => (
+        {posts && posts.map((post, index) => (
           <div className="card" key={post._id}>
             {post.image && <img src={post.image} alt={post.bookname} />}
             <p><strong>Book Name:</strong> {post.bookname}</p>

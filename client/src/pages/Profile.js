@@ -30,7 +30,7 @@ const Profile = () => {
         <h1>{userdata.email}</h1>
         <h1>{posts.msg}</h1>
         <div className="card-container">
-        {posts.books && posts.books.map((post, index) => (
+        {posts && posts.map((post, index) => (
           <div className="card" key={post._id}>
             {post.image && <img src={post.image} alt={post.bookname} />}
             <p><strong>Book Name:</strong> {post.bookname}</p>

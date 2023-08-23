@@ -8,22 +8,22 @@ import LoginAdmin from './pages/LoginAdmin';
 import Admin from './pages/Admin';
 import AddBookAdmin from './pages/AddBookAdmin';
 import UpdateBookAdmin from './pages/UpdateBookAdmin';
+import UserProfile from './pages/UserProfile';
 
 
 function App() {
-
   return (
     <div className="App">
       <Navbar/>
       <Routes>
         <Route path="/login" element={<Login />} /> 
         <Route path="/register" element={<Register />} /> 
-        <Route path="/profile" element={<Profile />} /> 
+        <Route path="/listbooks" element={<Profile />} /> 
         <Route path="/LoginAdmin" element={<LoginAdmin />} /> 
         <Route path="/Admin" element={<Admin />} /> 
         <Route path="/AddBook" element={<AddBookAdmin />} /> 
         <Route path="/UpdateBook" element={<UpdateBookAdmin />} /> 
-
+        <Route path="/Userprofile" element={<UserProfile />} /> 
       </Routes>
     </div>
   );

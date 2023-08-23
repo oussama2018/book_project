@@ -18,6 +18,7 @@ export const getAllBooks = createAsyncThunk(
   async (info, { rejectWithValue,dispatch }) => {
     try {
       const res = await axios.get("/admin/Book/getAllBooks");
+      console.log(res.data)
       return res.data;
     } catch (errors) {
       return rejectWithValue(errors.response.data.msg);
@@ -30,6 +31,7 @@ export const deleteBook = createAsyncThunk(
     async (bookId, { rejectWithValue, dispatch }) => {
       try {
         await axios.delete(`/admin/Book/deleteBook/${bookId}`);
+        dispatch(getAllBooks())
       } catch (errors) {
         return rejectWithValue(errors.response.data.msg);
       }
@@ -109,7 +111,7 @@ const adminSlice = createSlice({
     },
     [getAllBooks.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts = action.payload; 
+      state.posts = action.payload.books; 
       console.log(state.posts);
     },
     [getAllBooks.rejected]: (state) => {
