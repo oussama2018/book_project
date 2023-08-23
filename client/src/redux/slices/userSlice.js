@@ -24,17 +24,23 @@ export const signup=createAsyncThunk(
 //         }
 //     }
 // )
-export const signin=createAsyncThunk(
-    "/api/login",async(info,rejectWithValue)=>{
-        try{
-                const res=await axios.post("/user/login",info)
-                return res.data
+export const signin = createAsyncThunk(
+    "/api/login",
+    async (info, { rejectWithValue }) => {
+      try {
+        const res = await axios.post("/user/login", info);
+        return res.data;
+      } catch (errors) {
+        if (errors.response && errors.response.status === 400) {
+          // Handle the 400 Bad Request error
+          return rejectWithValue(errors.response.data);
+        } else {
+          // Handle other errors
+          return rejectWithValue("An error occurred during login.");
         }
-        catch(errors){
-                return rejectWithValue(errors.response.data.msg)
-        }
+      }
     }
-)
+  );
 export const getAllBooks = createAsyncThunk(
     "admin/getAllBooks",
     async (info, { rejectWithValue,dispatch }) => {
@@ -57,7 +63,8 @@ const userSlice=createSlice({
         posts: [],
         isLoading:false,
         token:localStorage.getItem("token")||null,
-        isAuth:Boolean(localStorage.getItem("isAuth")) || false
+        isAuth:Boolean(localStorage.getItem("isAuth")) || false,
+        error: null
     },
     reducers:{
         logout:(state)=>{
@@ -77,30 +84,37 @@ const userSlice=createSlice({
         state.token=action.payload.token
         localStorage.setItem("token",state.token)
         localStorage.setItem("isAuth",state.isAuth)
+        localStorage.setItem("userdata",state.userdata); // Save userdata as string
+
 
 
         
 
         },
-        [signup.rejected]:(state)=>{
+        [signup.rejected]:(state, action)=>{
         state.isLoading=false
         state.isAuth=false
         state.token=null
+        state.error = action.payload
         },
         [signin.pending]:(state)=>{
         state.isLoading=true},
         [signin.fulfilled]:(state,action)=>{
+            console.log("Received user data:", action.payload.user);
         state.isAuth=true
         state.isLoading=false
         state.userdata=action.payload.user
+        console.log(state.userdata)
         state.token=action.payload.token
         localStorage.setItem("token",state.token)
         localStorage.setItem("isAuth",state.isAuth)
+        localStorage.setItem("userdata",state.userdata);
         },
-        [signin.rejected]:(state)=>{
+        [signin.rejected]:(state, action)=>{
         state.isLoading=false
         state.isAuth=false
         state.token=null
+        state.error = action.payload;
         },
 
         [getAllBooks.pending]: (state) => {
@@ -118,4 +132,4 @@ const userSlice=createSlice({
 })
 
 export default userSlice.reducer
-export const {logout}=userSlice.actions
+export const {logout,setUserdata}=userSlice.actions

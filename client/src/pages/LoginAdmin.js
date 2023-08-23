@@ -1,5 +1,5 @@
 import React from 'react'
-import './LoginAdmin.css';
+
 
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import { signin } from '../redux/slices/adminSlice';
 import { useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// import '../styles/LoginAdmin.css'
 
 const LoginAdmin = () => {
     const dispatch=useDispatch()
@@ -24,6 +24,7 @@ const LoginAdmin = () => {
    
       };
       console.log(errors)
+      
     return (
       <div>
          <form onSubmit={handleSubmit(onSubmit)}>

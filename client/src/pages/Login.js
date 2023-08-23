@@ -5,11 +5,11 @@ import { signin } from '../redux/slices/userSlice';
 import { useSelector} from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginAdmin.css'
+import '../styles/LoginAdmin.css'
 const Login = () => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  const {isAuth}=useSelector(state=>state.user)
+  const {isAuth, error}=useSelector(state=>state.user)
   useEffect(()=>{
     if(isAuth){
       navigate("/listbooks")
@@ -28,7 +28,7 @@ const Login = () => {
         <input type="email" placeholder="email" id="username" {...register("email", {required: true, maxLength: 80})} />
         <label >Password</label>
         <input type="password" placeholder="password" id="password"{...register("password", {required: true, maxLength: 80})} />
-
+        {error && <p className="error-message">{error.msg}</p>} {/* Display the 'msg' property of the error object */}
       <input type="submit" />
     </form>
     </div>
