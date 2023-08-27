@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,13 +44,13 @@ const Admin = () => {
   };
   
 
-  // Function to open the popup and set the selected book's summary
+  // open the popup
   const openPopup = (summary) => {
     setSelectedBookSummary(summary);
     setShowPopup(true);
   };
 
-  // Function to close the popup
+  // close the popup
   const closePopup = () => {
     setSelectedBookSummary('');
     setShowPopup(false);
@@ -61,19 +61,18 @@ const Admin = () => {
       <h1>Welcome, Admin!</h1>
 
       <div className="card-container">
-        {posts &&
-          posts.map((post, index) => (
-            <div className="card" key={post._id}>
-              {post.image && <img src={post.image} alt={post.bookname} />}
-              <p><strong>Book Name:</strong> {post.bookname}</p>
-              <p><strong>Description:</strong> {post.description}</p>
-              <p><strong>Author:</strong> {post.author}</p>
-              <p><strong>Creation Date:</strong> {post.createAt}</p>
-              <button onClick={() => handleDelete(post._id)}>Delete</button>
-              <button onClick={() => handleUpdate(post._id)}>Update</button>
-              <button onClick={() => openPopup(post.summary)}>View Summary</button>
-            </div>
-          ))}
+        {posts && posts.map((post) => (
+          <div className="card" key={post._id}>
+            {post.image && <img src={post.image} alt={post.bookname} />}
+            <p><strong>Book Name:</strong> {post.bookname}</p>
+            <p><strong>Description:</strong> {post.description}</p>
+            <p><strong>Author:</strong> {post.author}</p>
+            <p><strong>Creation Date:</strong> {post.createAt}</p>
+            <button onClick={() => handleDelete(post._id)}>Delete</button>
+            <button onClick={() => handleUpdate(post._id)}>Update</button>
+            <button onClick={() => openPopup(post.summary)}>View Summary</button>
+          </div>
+        ))}
       </div>
 
       <button onClick={() => dispatch(logout())}>Logout</button>
