@@ -18,7 +18,7 @@ const AddBookAdmin = () => {
       <input type="text" placeholder="author" {...register("author", {required: true})} />
       <input type="text" placeholder="image" {...register("image", {required: true})} />
       <input type="number" placeholder="price" {...register("price", {required: true})} />
-
+      <input type="text" placeholder="summary" {...register("summary", {required: true})} />
       <input type="submit" />
     </form>
     </div>

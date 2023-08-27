@@ -13,7 +13,8 @@ const postSchema=mongoose.Schema({
        owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'users'
-       }
+       },
+    summary:{type:String,required:true},
     
 })
 const Book=mongoose.model('books',postSchema)

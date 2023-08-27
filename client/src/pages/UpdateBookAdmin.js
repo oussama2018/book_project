@@ -22,6 +22,7 @@ const UpdateBookAdmin = () => {
       setValue("author", book.author);
       setValue("image", book.image);
       setValue("price", book.price);
+      setValue("summary", book.summary);
       setLoading(false); // Set loading to false once values are set
     }
   }, [book, setValue]);
@@ -52,6 +53,7 @@ const UpdateBookAdmin = () => {
         <input type="text" placeholder="author" {...register("author", { required: true })} />
         <input type="text" placeholder="image" {...register("image", { required: true })} />
         <input type="number" placeholder="price" {...register("price", { required: true })} />
+        <input type="text" placeholder="summary" {...register("summary", { required: true })} />
         <input type="submit" value="Update" />
       </form>
     </div>

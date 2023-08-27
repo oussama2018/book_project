@@ -31,7 +31,7 @@ const login=async(req,res)=>{
 
     const addBook=async(req,res)=>{
         try {
-            const{bookname,description,author,image,price}=req.body
+            const{bookname,description,author,image,price,summary}=req.body
             const newBook=await Book.create(req.body)
            
                 res.status(201).json({msg:"book created",newBook:newBook})
@@ -89,11 +89,11 @@ const login=async(req,res)=>{
         const updateBook = async (req, res) => {
             try {
                 const bookId = req.params.id;
-                const { bookname, description, author, image, price } = req.body;
+                const { bookname, description, author, image, price,summary } = req.body;
                 
                 const updatedBook = await Book.findByIdAndUpdate(
                     bookId,
-                    { bookname, description, author, image, price },
+                    { bookname, description, author, image, price, summary },
                     { new: true }
                 );
         
