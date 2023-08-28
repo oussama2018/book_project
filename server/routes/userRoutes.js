@@ -16,7 +16,6 @@ router.post('/register',register)
 router.post('/login',login)
 router.get('/get',authMiddleware,getuserinfo)
 router.delete('/delete/:id',deleteUser); 
-router.delete('/delete/:id',deleteUser); 
 router.put('/update/:id', updateUserFields); 
 router.get('/getBook/:id',getBook)
 router.get('/getAllBooks',getAllBooks)

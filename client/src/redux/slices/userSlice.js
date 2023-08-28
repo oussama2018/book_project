@@ -53,6 +53,18 @@ export const getAllBooks = createAsyncThunk(
     }
   );
 
+  export const deleteUser = createAsyncThunk(
+    "user/deleteUser",
+    async (userId, { rejectWithValue }) => {
+      try {
+        const res = await axios.delete(`/user/delete/${userId}`);
+        return res.data;
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
+  
 
 
 
