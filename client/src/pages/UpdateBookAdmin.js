@@ -2,7 +2,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateBook } from '../redux/slices/adminSlice';
+import { updateBook,logout } from '../redux/slices/adminSlice';
+import { Link } from 'react-router-dom';
+import '../styles/NavBar.css';
 const UpdateBookAdmin = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,6 +48,14 @@ const UpdateBookAdmin = () => {
 
   return (
     <div>
+        <div className="navbar">
+        <ul>
+        <Link to="/admin">Home</Link>
+        <Link to="/addBook">Add Books</Link>
+       <Link to="/ListUsers">List Users</Link>
+          <button onClick={() => dispatch(logout())}>Logout</button>
+        </ul>
+      </div>
       <h2>Update Book</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="bookname" {...register("bookname", { required: true })} />

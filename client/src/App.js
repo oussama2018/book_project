@@ -14,7 +14,7 @@ import ListUsers from './pages/ListUsers';
 function App() {
   const location = useLocation(); // Get the current location
 
-  const hiddenNavbarRoutes = ['/LoginAdmin', '/ListUsers' ,'/admin', '/addBook']; // Include Admin route here
+  const hiddenNavbarRoutes = ['/LoginAdmin', '/ListUsers' ,'/admin', '/addBook', '/UpdateBook']; // Include Admin route here
 
   // Check if the current route is in the hiddenNavbarRoutes array
   const shouldDisplayNavbar = !hiddenNavbarRoutes.includes(location.pathname);
