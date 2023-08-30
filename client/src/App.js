@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes,Route, useNavigate } from 'react-router-dom';
+import { Routes,Route, useNavigate, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
@@ -13,9 +13,16 @@ import ListUsers from './pages/ListUsers'
 
 
 function App() {
+  const location = useLocation(); // Get the current location
+
+
+  const hiddenNavbarRoutes = ['/LoginAdmin'];
+
+  // Check if the current route is in the hiddenNavbarRoutes array
+  const shouldDisplayNavbar = !hiddenNavbarRoutes.includes(location.pathname);
   return (
     <div className="App">
-      <Navbar/>
+      {shouldDisplayNavbar && <Navbar />} {/* Render Navbar conditionally */}
       <Routes>
         <Route path="/login" element={<Login />} /> 
         <Route path="/register" element={<Register />} /> 

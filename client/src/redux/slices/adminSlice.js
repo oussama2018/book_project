@@ -73,6 +73,19 @@ export const deleteBook = createAsyncThunk(
     }
   );
   
+  export const deleteUser = createAsyncThunk(
+    "admin/deleteUser",
+    async (userId, { rejectWithValue, dispatch }) => {
+      try {
+        await axios.delete(`/admin/deleteUser/${userId}`);
+        
+        dispatch(getAllUsers());
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
+  
 
 //   export const addBook = createAsyncThunk(
 //     "admin/addBook",
@@ -93,6 +106,7 @@ const adminSlice = createSlice({
     isLoading: false,
     token: localStorage.getItem("token") || null,
     isAuth: Boolean(localStorage.getItem("isAuth")) || false,
+    users: [],
   },
   reducers: {
     logout: (state) => {
@@ -186,6 +200,18 @@ const adminSlice = createSlice({
     [getAllUsers.rejected]: (state) => {
       state.isLoading = false;
     },
+    [deleteUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // Optionally, you can remove the deleted user from the users array
+      const userId = action.meta.arg;
+      state.users = state.users.filter((user) => user._id !== userId);
+    },
+    [deleteUser.rejected]: (state) => {
+      state.isLoading = false;
+    },
     
     //   [addBook.pending]: (state) => {
     //     state.isLoading = true;
@@ -203,5 +229,5 @@ const adminSlice = createSlice({
 });
 
 export default adminSlice.reducer;
-export const { logout } = adminSlice.actions;
+export const { logout} = adminSlice.actions;
 

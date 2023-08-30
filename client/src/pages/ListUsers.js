@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAllUsers } from '../redux/slices/adminSlice';
+import { getAllUsers, deleteUser } from '../redux/slices/adminSlice';
 import '../styles/Card.css';
 
 const ListUsers = () => {
@@ -20,15 +20,21 @@ const ListUsers = () => {
     }
   }, [isAuth, dispatch, navigate]);
 
+  const handleDeleteUser = (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      dispatch(deleteUser(userId));
+    }
+  };
+
   return (
-    <div className="user-list-container" style={{color:'white'}}>
+    <div className="user-list-container" style={{ color: 'white' }}>
       <h2>User List:</h2>
       <table className="user-table">
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
-            {/* Add more table headers for additional user information */}
+            <th>Action</th> {/* Add a column for the delete button */}
           </tr>
         </thead>
         <tbody>
@@ -37,7 +43,14 @@ const ListUsers = () => {
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                {/* Add more table cells for additional user information */}
+                <td>
+                  <button
+                    onClick={() => handleDeleteUser(user._id)}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
         </tbody>

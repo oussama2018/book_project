@@ -117,27 +117,27 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         };
+
+
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            res.status(404).json({ msg: "User not found" });
+        } else {
+            res.status(200).json({ msg: "User deleted", deletedUser });
+        }
+    } catch (error) {
+        console.error("Error during user deletion:", error);
+        res.status(500).json({ msg: "Something went wrong", err: error });
+    }
+};
+
+
         
-        const deleteAllUsers = async (req, res) => {
-            try {
-                const users = await User.find();
-                
-                if (users.length === 0) {
-                    return res.status(404).json({ msg: "No users found to delete" });
-                }
-        
-                for (const user of users) {
-                    const deletedUser = await User.findByIdAndDelete(user._id);
-                    console.log(`Deleted user with ID ${user._id}`);
-                }
-        
-                res.status(200).json({ msg: " user deleted successfully" });
-            } catch (error) {
-                console.error("Error during user deletion:", error);
-                res.status(500).json({ msg: "Something went wrong", err: error });
-            }
-        };
-        module.exports = { login, addBook, deleteBook, updateBook, getBook,getAllBooks,getAllUsers,deleteAllUsers };
+        module.exports = { login, addBook, deleteBook, updateBook, getBook,getAllBooks,getAllUsers,deleteUser };
         
     
     
