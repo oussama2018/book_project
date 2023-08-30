@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes,Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
@@ -9,20 +9,19 @@ import Admin from './pages/Admin';
 import AddBookAdmin from './pages/AddBookAdmin';
 import UpdateBookAdmin from './pages/UpdateBookAdmin';
 import UserProfile from './pages/UserProfile';
-import ListUsers from './pages/ListUsers'
-
+import ListUsers from './pages/ListUsers';
 
 function App() {
   const location = useLocation(); // Get the current location
 
-
-  const hiddenNavbarRoutes = ['/LoginAdmin'];
+  const hiddenNavbarRoutes = ['/LoginAdmin', '/ListUsers' ,'/admin', '/addBook']; // Include Admin route here
 
   // Check if the current route is in the hiddenNavbarRoutes array
   const shouldDisplayNavbar = !hiddenNavbarRoutes.includes(location.pathname);
+  
   return (
     <div className="App">
-      {shouldDisplayNavbar && <Navbar />} {/* Render Navbar conditionally */}
+      {shouldDisplayNavbar && <Navbar />} 
       <Routes>
         <Route path="/login" element={<Login />} /> 
         <Route path="/register" element={<Register />} /> 

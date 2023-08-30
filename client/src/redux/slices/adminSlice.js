@@ -42,7 +42,7 @@ export const deleteBook = createAsyncThunk(
     async (newBookInfo, { rejectWithValue, dispatch }) => {
       try {
         const res = await axios.post("/admin/Book/addBook", newBookInfo);
-        return res.data; // Assuming the server returns the newly added book data
+        return res.data; 
       } catch (errors) {
         return rejectWithValue(errors.response.data.msg);
       }
@@ -54,7 +54,7 @@ export const deleteBook = createAsyncThunk(
       try {
         const res = await axios.put(`/admin/Book/updateBook/${bookId}`, updatedBookInfo);
         console.log(bookId)
-        return { bookId, updatedBookInfo: res.data }; // Return the updated book info
+        return { bookId, updatedBookInfo: res.data }; 
       } catch (errors) {
         return rejectWithValue(errors.response.data.msg);
       }

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAllUsers, deleteUser } from '../redux/slices/adminSlice';
+import { getAllUsers, deleteUser,logout } from '../redux/slices/adminSlice';
+import { Link } from 'react-router-dom';
 import '../styles/Card.css';
+import '../styles/NavBar.css';
 
 const ListUsers = () => {
   const dispatch = useDispatch();
@@ -27,7 +29,16 @@ const ListUsers = () => {
   };
 
   return (
+    
     <div className="user-list-container" style={{ color: 'white' }}>
+            <div className="navbar">
+        <ul>
+        <Link to="/admin">Home</Link>
+        <Link to="/addBook">Add Books</Link>
+       <Link to="/ListUsers">List Users</Link>
+          <button onClick={() => dispatch(logout())}>Logout</button>
+        </ul>
+      </div>
       <h2>User List:</h2>
       <table className="user-table">
         <thead>

@@ -5,9 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getBook, logout, getAllBooks, deleteBook } from '../redux/slices/adminSlice';
 import '../styles/Card.css';
-
+import  loginAdmin  from './LoginAdmin';
+import { Link } from 'react-router-dom';
+import '../styles/NavBar.css'
 const Admin = () => {
+  
   const dispatch = useDispatch();
+  dispatch(loginAdmin());
+
   const { admindata, isAuth, isLoading } = useSelector((state) => state.admin);
   const posts = useSelector((state) => state.admin.posts);
 
@@ -23,8 +28,8 @@ const Admin = () => {
     }
   }, [isAuth]);
 
-  const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
-  const [selectedBookSummary, setSelectedBookSummary] = useState(''); // State to store selected book's summary
+  const [showPopup, setShowPopup] = useState(false); 
+  const [selectedBookSummary, setSelectedBookSummary] = useState('');
 
   const handleDelete = (bookId) => {
     dispatch(deleteBook(bookId));
@@ -61,7 +66,14 @@ const Admin = () => {
   return (
     <div>
       <h1>Welcome, Admin!</h1>
-
+      <div className="navbar">
+        <ul>
+        <Link to="/admin">Home</Link>
+        <Link to="/addBook">Add Books</Link>
+       <Link to="/ListUsers">List Users</Link>
+          <button onClick={() => dispatch(logout())}>Logout</button>
+        </ul>
+      </div>
       <div className="card-container">
         {posts && posts.map((post) => (
           <div className="card" key={post._id}>
@@ -76,8 +88,8 @@ const Admin = () => {
           </div>
         ))}
       </div>
+          
 
-      <button onClick={() => dispatch(logout())}>Logout</button>
 
       {/* Popup */}
       {showPopup && (
