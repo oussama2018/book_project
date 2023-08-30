@@ -9,6 +9,7 @@ import Admin from './pages/Admin';
 import AddBookAdmin from './pages/AddBookAdmin';
 import UpdateBookAdmin from './pages/UpdateBookAdmin';
 import UserProfile from './pages/UserProfile';
+import ListUsers from './pages/ListUsers'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/AddBook" element={<AddBookAdmin />} /> 
         <Route path="/UpdateBook" element={<UpdateBookAdmin />} /> 
         <Route path="/Userprofile" element={<UserProfile />} /> 
+        <Route path="/ListUsers" element={<ListUsers />} /> 
       </Routes>
     </div>
   );

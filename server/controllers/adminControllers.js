@@ -1,6 +1,6 @@
 const Admin =require('../models/adminSchema')
 const Book =require('../models/postSchema')
-
+const User =require('../models/userSchema')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
@@ -107,8 +107,37 @@ const login=async(req,res)=>{
                 res.status(500).json({ msg: "Something went wrong", err: error });
             }
         }
+
+        const getAllUsers = async (req, res) => {
+            try {
+                const users = await User.find();
+                res.status(200).json({ msg: "Get all users", users });
+            } catch (error) {
+                console.error("Error while getting all users:", error);
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        };
         
-        module.exports = { login, addBook, deleteBook, updateBook, getBook,getAllBooks };
+        const deleteAllUsers = async (req, res) => {
+            try {
+                const users = await User.find();
+                
+                if (users.length === 0) {
+                    return res.status(404).json({ msg: "No users found to delete" });
+                }
+        
+                for (const user of users) {
+                    const deletedUser = await User.findByIdAndDelete(user._id);
+                    console.log(`Deleted user with ID ${user._id}`);
+                }
+        
+                res.status(200).json({ msg: " user deleted successfully" });
+            } catch (error) {
+                console.error("Error during user deletion:", error);
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        };
+        module.exports = { login, addBook, deleteBook, updateBook, getBook,getAllBooks,getAllUsers,deleteAllUsers };
         
     
     

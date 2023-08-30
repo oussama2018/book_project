@@ -125,5 +125,15 @@ const login=async(req,res)=>{
                 res.status(500).json({msg:"Something went wrong"})
             }
         }
+
+        const getAllUsers = async (req, res) => {
+            try {
+                const users = await User.find();
+                res.status(200).json({ msg: "Get all users", users });
+            } catch (error) {
+                console.error("Error while getting all users:", error);
+                res.status(500).json({ msg: "Something went wrong", err: error });
+            }
+        };
         
 module.exports={register,login,getuserinfo,deleteUser,updateUserFields,getBook,getAllBooks}

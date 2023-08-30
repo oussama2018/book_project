@@ -37,7 +37,7 @@ const UserProfile = () => {
     <div>
       <h1>User Profile</h1>
       {userdata &&
-        <div>
+        <div style={{color:'white'}}>
           <h1>Name: {userdata.name}</h1>
           <h1>Age: {userdata.age}</h1>
           <h1>Email: {userdata.email}</h1>

@@ -11,6 +11,7 @@ const Admin = () => {
   const { admindata, isAuth, isLoading } = useSelector((state) => state.admin);
   const posts = useSelector((state) => state.admin.posts);
 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const Admin = () => {
       navigate('/LoginAdmin');
     } else {
       dispatch(getAllBooks());
+    
     }
   }, [isAuth]);
 

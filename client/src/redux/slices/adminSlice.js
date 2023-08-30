@@ -61,6 +61,19 @@ export const deleteBook = createAsyncThunk(
     }
   );
 
+  export const getAllUsers = createAsyncThunk(
+    "admin/getAllUsers",
+    async (_, { rejectWithValue }) => {
+      try {
+        const res = await axios.get("/admin/getAllUsers"); 
+        return res.data;
+      } catch (errors) {
+        return rejectWithValue(errors.response.data.msg);
+      }
+    }
+  );
+  
+
 //   export const addBook = createAsyncThunk(
 //     "admin/addBook",
 //     async (newBookInfo, { rejectWithValue, dispatch }) => {
@@ -161,6 +174,17 @@ const adminSlice = createSlice({
       [updateBook.rejected]: (state) => {
         state.isLoading = false;
       
+    },
+
+    [getAllUsers.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.users = action.payload.users; // Assuming the payload contains the list of users
+    },
+    [getAllUsers.rejected]: (state) => {
+      state.isLoading = false;
     },
     
     //   [addBook.pending]: (state) => {
